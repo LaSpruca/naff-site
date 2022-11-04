@@ -12,7 +12,29 @@
 	</p>
 </div>
 
-<div class="pink" />
+<div class="pink">
+	<h2>Wanna Join?</h2>
+	<p>Current time is un decided</p>
+
+	<h3>Interested in Joining?</h3>
+	<a href="/participate">SIGN UP HERE</a>
+
+	<h3>Make sure to read our</h3>
+	<a href="/participate">RULES</a>
+</div>
 
 <style lang="scss">
+	.pink {
+		h3 {
+			padding-top: 0.25rem;
+			font-size: 15px;
+		}
+
+		a {
+			text-decoration: none;
+			font-size: 17px;
+			color: white;
+			font-weight: bold;
+		}
+	}
 </style>
