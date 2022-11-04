@@ -9,7 +9,7 @@
 	<img src="/assets/img/naff-logo.png" alt="NAFF Logo" height="50px" />
 	<nav>
 		<a href="/" class:active={pageHref == '/'}>About</a>
-		<a href="/rules" class:active={pageHref.startsWith('/participate')}>Participate</a>
+		<a href="/rules" class:active={pageHref.startsWith('/rules')}>Rules</a>
 		<a href="/participate" class:active={pageHref.startsWith('/participate')}>Participate</a>
 		<a href="/contact" class:active={pageHref == '/contact'}>Contact us</a>
 	</nav>

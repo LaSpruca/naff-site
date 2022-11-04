@@ -1,5 +1,9 @@
+<svelte:head>
+	<title>Northland Amature Filmakers Festival</title>
+</svelte:head>
+
 <div class="red">
-	<h1 class="title">Northland Amature Filmmakers Comptition</h1>
+	<h1 class="title">Northland Amature Filmakers Comptition</h1>
 	<p>A film competition for those of us in Northland</p>
 </div>
 
