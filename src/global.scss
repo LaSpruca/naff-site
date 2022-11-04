@@ -1,0 +1,68 @@
+:root {
+    --bg-green: #136C49FF;
+    --bg-red: #F10B17FF;
+    --bg-yellow: #E4B92DFF;
+    --bg-blue: #A2D6E0FF;
+    --bg-pink: #F388A0FF;
+
+    --text: #FFFFFFFF;
+    --text-disabled: #FFFFFFCC;
+}
+
+* {
+    margin: 0;
+    box-sizing: border-box;
+}
+
+body {
+    color: var(--text);
+    background-color: var(--bg-blue);
+    font-family: 'Open Sans', sans-serif;
+    // background-color: ;
+}
+
+.title {
+    font-family: 'Roboto', sans-serif;
+}
+
+main {
+    margin-top: 7rem;
+    width: 100%;
+}
+
+@mixin section($color) {
+    text-align: center;
+    padding: 1.5rem;
+    width: 100%;
+    background-color: $color;
+
+    .title {
+        padding-bottom: 0.5rem;
+    }
+
+    h1 {
+        font-size: 17px;
+        font-weight: bold;
+    }
+
+    h2 {
+        font-size: 16px;
+        font-weight: bold;
+    }
+
+    p {
+        font-size: 13px;
+    }
+}
+
+.red {
+    @include section(var(--bg-red));
+}
+
+.green {
+    @include section(var(--bg-green));
+}
+
+.pink {
+    @include section(var(--bg-pink));
+}
