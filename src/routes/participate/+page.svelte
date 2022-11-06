@@ -3,6 +3,10 @@
 	import SectionHeader from '$lib/components/SectionHeader.svelte';
 </script>
 
+<svelte:head>
+	<title>PARTICIPATE | NAFF</title>
+</svelte:head>
+
 <SectionHeader>Participants Portal</SectionHeader>
 <Paragraph color="red">
 	<svelte:fragment slot="title">Comming soon</svelte:fragment>

@@ -3,6 +3,10 @@
 	import SectionHeader from '$lib/components/SectionHeader.svelte';
 </script>
 
+<svelte:head>
+	<title>CONTACT | NAFF</title>
+</svelte:head>
+
 <SectionHeader>Get in Touch</SectionHeader>
 <Paragraph color="pink">
 	<svelte:fragment slot="title">Contact Options</svelte:fragment>

@@ -4,6 +4,10 @@
 	import SectionHeader from '$lib/components/SectionHeader.svelte';
 </script>
 
+<svelte:head>
+	<title>NAFF</title>
+</svelte:head>
+
 <SectionHeader>A filmmaking competition for those of us in Northland</SectionHeader>
 
 <Paragraph color="blue">

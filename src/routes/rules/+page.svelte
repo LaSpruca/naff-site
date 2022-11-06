@@ -3,6 +3,10 @@
 	import SectionHeader from '$lib/components/SectionHeader.svelte';
 </script>
 
+<svelte:head>
+	<title>RULES | NAFF</title>
+</svelte:head>
+
 <SectionHeader>Competition Rules</SectionHeader>
 
 <Section color="blue">
