@@ -19,15 +19,23 @@
 
 <style>
 	.page {
-		max-width: 1400px;
-		display: flex;
-		min-height: 100vh;
+		min-height: calc(100vh - 7rem);
 
+		display: flex;
+		flex-direction: column;
 		align-items: center;
 		justify-content: space-between;
+	}
 
+	main {
+		width: 90vw;
+		margin: 0 auto;
+		padding: 1rem 0;
+		display: flex;
+		gap: 1rem;
+		align-items: center;
+		justify-content: center;
 		flex-direction: column;
-
-		margin: auto;
+		max-width: 700px;
 	}
 </style>

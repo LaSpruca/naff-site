@@ -17,43 +17,38 @@
 
 <style lang="scss">
 	header {
-		z-index: 999;
-		background-color: var(--bg-yellow);
-
-		padding: 1rem;
+		background-color: rgb(var(--bg-yellow));
 		height: 7rem;
-		width: 100vw;
-		max-width: 100%;
-
-		position: fixed;
-		top: 0;
-		left: 0;
 
 		display: flex;
-		flex-direction: column;
-		justify-content: center;
 		align-items: center;
+		justify-content: center;
+		flex-direction: column;
+		gap: 0.5rem;
+
+		box-shadow: 0px 4px 7px rgba(var(--bg-yellow), 0.4);
+	}
+
+	nav {
+		display: flex;
 		gap: 1rem;
 
-		filter: drop-shadow(0 4px 4px #000000cc);
+		a {
+			font-family: 'Roboto', sans-serif;
+			text-decoration: none;
+			color: #00000080;
+			font-weight: bold;
+			padding: 5px;
+			transition: all ease-in-out 0.1s;
+			border-radius: 1px;
 
-		nav {
-			display: flex;
-			align-items: center;
-			justify-content: center;
-			flex-direction: row;
-			gap: 1rem;
+			&:hover {
+				color: #000000ff;
+			}
 
-			a {
-				color: var(--text);
-				text-decoration: none;
-				font-weight: bold;
-				font-size: 15px;
-
-				&.active {
-					color: var(--text-disabled);
-					font-weight: bold;
-				}
+			&.active {
+				color: #000000ff;
+				box-shadow: 0 0 0 4px #000;
 			}
 		}
 	}
