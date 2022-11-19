@@ -33,6 +33,7 @@
 	},
 	"type": "module",
 	"dependencies": {
+		"@auth0/auth0-spa-js": "^2.0.0",
 		"@trpc/client": "^9.27.4",
 		"@trpc/server": "^9.27.4",
 		"trpc-sveltekit": "^2.3.7"

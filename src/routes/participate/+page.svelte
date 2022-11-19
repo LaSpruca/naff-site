@@ -1,6 +1,8 @@
 <script lang="ts">
-	import Paragraph from '$lib/components/Paragraph.svelte';
+	import { loggedIn } from '$lib/client/stores';
+	import Login from '$lib/components/Login.svelte';
 	import SectionHeader from '$lib/components/SectionHeader.svelte';
+	import User from '$lib/components/User.svelte';
 </script>
 
 <svelte:head>
@@ -8,10 +10,11 @@
 </svelte:head>
 
 <SectionHeader>Participants Portal</SectionHeader>
-<Paragraph color="red">
-	<svelte:fragment slot="title">Comming soon</svelte:fragment>
-	<p slot="content">Registrations open on the 20th of December</p>
-</Paragraph>
+{#if !$loggedIn}
+	<Login />
+{:else}
+	<User />
+{/if}
 
 <style lang="scss">
 </style>
