@@ -5,11 +5,12 @@ import * as api from '$lib/client/api';
 
 export const prerender = false;
 
-export const load: PageServerLoad = async ({ request, cookies, fetch }) => {
+export const load: PageServerLoad = async ({ cookies, fetch }) => {
 	const auth = cookies.get('access_token');
 
 	if (!auth || auth == '') {
 		throw redirect(307, `${PUBLIC_BACKEND}/auth/login`);
+		// throw error(401, { message: 'Unauthorized' });
 	}
 
 	let user;
@@ -18,7 +19,9 @@ export const load: PageServerLoad = async ({ request, cookies, fetch }) => {
 
 	try {
 		user = await api.getUser({ fetch, token: auth });
+		console.log('Fetched user');
 		team = await api.getTeam({ fetch, token: auth });
+		console.log('Fetched team');
 
 		if (team) {
 			members = await api.getMembers(team.id, { fetch, token: auth });
@@ -29,7 +32,7 @@ export const load: PageServerLoad = async ({ request, cookies, fetch }) => {
 				throw redirect(307, `${PUBLIC_BACKEND}/auth/logout`);
 			}
 		}
-
+		console.error(ex);
 		throw error(500, {
 			message: 'Internal Server Error'
 		});
@@ -40,49 +43,4 @@ export const load: PageServerLoad = async ({ request, cookies, fetch }) => {
 		team,
 		members
 	};
-};
-
-export const _load: PageServerLoad = async ({ request, cookies, fetch }) => {
-	const auth = cookies.get('access_token');
-
-	if (!auth) {
-		throw redirect(307, `${PUBLIC_BACKEND}/auth/login`);
-	} else {
-		try {
-			const userData = await fetch(`${PUBLIC_BACKEND}/api/user`, {
-				headers: {
-					Authorization: `Bearer ${auth}`
-				}
-			});
-
-			if (userData.status == 401) {
-				throw error(401, {
-					message: 'You are not currently logged in, please clear cookies and try again'
-				});
-			} else if (userData.status != 200) {
-				throw error(500, { message: 'Internal server error' });
-			}
-
-			const team = await fetch(`${PUBLIC_BACKEND}/api/team`, {
-				headers: {
-					Authorization: `Bearer ${auth}`
-				}
-			});
-
-			const teamData = (await team.json()) as api.Team;
-
-			let membersData = [];
-
-			if (team.status == 200) {
-				const members = await fetch(`${PUBLIC_BACKEND}/api/team/${teamData.id}/members`);
-			}
-			return {
-				userData: (await userData.json()) as api.User,
-				teamData: team.status == 200 ? ((await team.json()) as api.Team) : null
-			};
-		} catch (ex) {
-			console.log(ex);
-			throw error(500, { message: "Couldn't fetch user data" });
-		}
-	}
 };

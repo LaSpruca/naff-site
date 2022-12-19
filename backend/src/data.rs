@@ -1,7 +1,5 @@
 use rand::{thread_rng, Rng};
 use serde::Deserialize;
-use std::sync::Arc;
-use tokio::sync::RwLock;
 use tracing::info;
 
 use crate::error::*;
@@ -28,33 +26,29 @@ pub fn get_config() -> Result<(Auth0Config, UrlConfig), Error> {
 
 #[derive(Clone, Debug)]
 pub struct States {
-    inner: Arc<RwLock<Vec<String>>>,
+    inner: Vec<String>,
 }
 
 impl States {
     pub fn new() -> Self {
-        Self {
-            inner: Arc::new(RwLock::new(vec![])),
-        }
+        Self { inner: vec![] }
     }
 
-    pub async fn add(&self) -> String {
+    pub fn add(&mut self) -> String {
         let mut rng = thread_rng();
         let state: String = (0..10)
             .map(|_| rng.sample(rand::distributions::Alphanumeric) as char)
             .collect();
-        self.inner.write().await.push(state.clone());
-
-        info!("{:?}", self.inner.read().await);
+        self.inner.push(state.clone());
 
         state
     }
 
-    pub async fn check(&self, state: &String) -> bool {
-        info!("{state} {:?}", self.inner.read().await);
-        let find_index = self.inner.read().await.iter().position(|x| x == state);
+    pub fn check(&mut self, state: &String) -> bool {
+        info!("{state} {:?}", self.inner);
+        let find_index = self.inner.iter().position(|x| x == state);
         if let Some(idex) = find_index {
-            self.inner.write().await.remove(idex);
+            self.inner.remove(idex);
             return true;
         }
 

@@ -16,6 +16,7 @@ use error::AsCreateError;
 pub use error::Error;
 use sqlx::migrate::Migrator;
 use std::process::ExitCode;
+use tokio::sync::Mutex;
 use tracing::{error, info};
 use tracing_actix_web::TracingLogger;
 
@@ -44,7 +45,7 @@ async fn start() -> Result<(), Error> {
             )
             .wrap(TracingLogger::default())
             .app_data(Data::new(Db::new(pool.clone())))
-            .app_data(Data::new(States::new()))
+            .app_data(Data::new(Mutex::new(States::new())))
             .app_data(Data::new(auth0.clone()))
             .app_data(Data::new(public.clone()))
             .service(api::api())

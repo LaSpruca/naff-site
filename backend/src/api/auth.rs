@@ -8,6 +8,7 @@ use actix_web::web::Query;
 use actix_web::Scope;
 use actix_web::{get, http::header, web::Data, HttpResponse, Responder};
 use serde::Deserialize;
+use tokio::sync::Mutex;
 use tracing::debug;
 
 #[derive(Deserialize, Clone)]
@@ -31,7 +32,7 @@ pub fn auth() -> actix_web::Scope {
 
 #[get("/login")]
 async fn login(
-    states: Data<States>,
+    states: Data<Mutex<States>>,
     auth0: Data<Auth0Config>,
     urls: Data<UrlConfig>,
 ) -> HttpResponse {
@@ -40,7 +41,7 @@ async fn login(
         client_id, domain, ..
     } = auth0.as_ref();
 
-    let random_string = states.add().await;
+    let random_string = states.lock().await.add();
 
     let callback_url = format!("{backend}/auth/callback?");
     let callback_url = urlencoding::encode(&callback_url).to_string();
@@ -63,7 +64,7 @@ scope=openid profile email user_id"
 #[get("/callback")]
 async fn login_callback(
     req: Query<Auth0Url>,
-    states: Data<States>,
+    states: Data<Mutex<States>>,
     config: Data<Auth0Config>,
     url_config: Data<UrlConfig>,
 ) -> impl Responder {
@@ -77,7 +78,7 @@ async fn login_callback(
 
     let Auth0Url { code, state } = req.0;
 
-    if states.check(&state).await {
+    if states.lock().await.check(&state) {
         // if true {
         let callback_url = format!("{backend}/auth/callback?");
 
@@ -120,7 +121,17 @@ async fn login_callback(
                         .path("/")
                         .same_site(SameSite::None)
                         .secure(true)
-                        .domain(frontend)
+                        .domain(
+                            frontend
+                                .strip_prefix("https://")
+                                .or_else(|| {
+                                    frontend
+                                        .strip_prefix("http://")
+                                        .unwrap()
+                                        .strip_suffix(":5173")
+                                })
+                                .unwrap(),
+                        )
                         .finish()
                         .to_string(),
                 ))

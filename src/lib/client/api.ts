@@ -1,4 +1,5 @@
-import { PUBLIC_BACKEND } from '$env/static/public';
+// import { PUBLIC_BACKEND } from '$env/static/public';
+const PUBLIC_BACKEND = 'http://0.0.0.0:8080';
 
 export class ApiError extends Error {
 	public code: number;
@@ -51,7 +52,7 @@ export const getTeam = async (options?: {
 	};
 
 	const fetch_fn = options?.fetch ?? fetch;
-	let request = await fetch_fn(`${PUBLIC_BACKEND}/api/team`, fetch_options);
+	let request = await fetch_fn(`${PUBLIC_BACKEND}/api/team/`, fetch_options);
 	let requestJson = await request.json();
 
 	if (request.status != 200) {
