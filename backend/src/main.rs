@@ -34,7 +34,7 @@ async fn start() -> Result<(), Error> {
             .wrap(
                 Cors::default()
                     .allowed_headers(["Cookie", "Authorization"])
-                    .allowed_origin(&public.clone().frontend)
+                    .allow_any_origin()
                     .allowed_methods(["GET", "POST"])
                     .supports_credentials(),
             )
