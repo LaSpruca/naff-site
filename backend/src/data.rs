@@ -2,6 +2,7 @@ use rand::{thread_rng, Rng};
 use serde::Deserialize;
 use std::sync::Arc;
 use tokio::sync::RwLock;
+use tracing::info;
 
 use crate::error::*;
 
@@ -48,6 +49,7 @@ impl States {
     }
 
     pub async fn check(&self, state: &String) -> bool {
+        info!("{state} {:?}", self.inner.read().await);
         let find_index = self.inner.read().await.iter().position(|x| x == state);
         if let Some(idex) = find_index {
             self.inner.write().await.remove(idex);
