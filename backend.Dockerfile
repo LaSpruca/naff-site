@@ -3,9 +3,8 @@ FROM rust:1.66-alpine AS builder
 WORKDIR /app
 RUN apk add postgresql-dev musl-dev
 RUN cargo init
-RUN cargo build
 COPY backend/Cargo.toml .
-RUN cargo build
+RUN cargo build --release
 COPY backend .
 RUN cargo build --release
 
