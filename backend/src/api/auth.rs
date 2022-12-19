@@ -119,6 +119,7 @@ async fn login_callback(
                         .http_only(true)
                         .path("/")
                         .same_site(SameSite::None)
+                        .secure(true)
                         .finish()
                         .to_string(),
                 ))

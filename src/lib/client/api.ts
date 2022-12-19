@@ -123,6 +123,7 @@ export const leaveTeam = async (): Promise<void> => {
 	let responseJson = await response.json();
 
 	if (response.status != 200) {
+		console.log('Throwing error');
 		throw new ApiError(responseJson);
 	}
 };

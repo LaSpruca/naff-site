@@ -1,4 +1,4 @@
-version: "3.9"
+version: '3.9'
 services:
   database:
     image: postgres
@@ -9,6 +9,6 @@ services:
     ports:
       - 5432:5432
     volumes:
-      - naff-db:/var/lib/postgresql/data
+      - naff-db:/var/lib/postgresql/data 
 volumes:
   naff-db:

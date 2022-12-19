@@ -67,8 +67,8 @@ impl Db {
         ).fetch_optional(&self.connection).await.map_err(|ex| {error!("Error fetching team: {ex}"); Error::InternalError})
     }
 
-    pub async fn in_team(&self, user: AuthUser) -> Result<(), Error> {
-        let in_team = sqlx::query!("SELECT has_team($1)", user.id)
+    pub async fn in_team(&self, user: AuthUser) -> Result<bool, Error> {
+        Ok(sqlx::query!("SELECT has_team($1)", user.id)
             .fetch_one(&self.connection)
             .await
             .map_err(|x| {
@@ -77,17 +77,13 @@ impl Db {
             })?
             .has_team
             // This is safe to unwrap because I know that it will always have a value, unless there was an error which will be reflected in the result
-            .unwrap();
-
-        if in_team {
-            return Err(Error::InTeam);
-        }
-
-        Ok(())
+            .unwrap())
     }
 
     pub async fn join_team(&self, user: AuthUser, team_id: String) -> Result<Team, Error> {
-        self.in_team(user.clone()).await?;
+        if self.in_team(user.clone()).await? {
+            return Err(Error::InTeam);
+        }
 
         let team = sqlx::query_as!(Team, "SELECT * FROM teams WHERE id = $1", team_id)
             .fetch_one(&self.connection)
@@ -197,13 +193,9 @@ impl Db {
     }
 
     pub async fn leave_team(&self, user: AuthUser) -> Result<(), Error> {
-        self.in_team(user.clone())
-            .await
-            .or_else(|x| match x {
-                Error::InTeam => Ok(()),
-                _ => Err(Error::InternalError),
-            })
-            .and(Err(Error::NotInTeam))?;
+        if !self.in_team(user.clone()).await? {
+            return Err(Error::NotInTeam);
+        }
 
         sqlx::query!("DELETE FROM user_connection WHERE \"user\" = $1", user.id)
             .execute(&self.connection)

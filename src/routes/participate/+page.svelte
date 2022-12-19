@@ -24,7 +24,7 @@
 <SectionHeader>Participants Portal</SectionHeader>
 
 {#if team && members}
-	<TeamPage {user} {team} {members} />
+	<TeamPage on:update-team={(event) => (team = event.detail)} {user} {team} {members} />
 {:else}
 	<JoinTeam on:team-update={(event) => (team = event.detail)} />
 {/if}

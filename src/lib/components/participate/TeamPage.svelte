@@ -1,12 +1,15 @@
 <script lang="ts">
 	import { browser } from '$app/environment';
-	import type * as api from '$lib/client/api';
 	import Paragraph from '../Paragraph.svelte';
 	import Section from '../Section.svelte';
+	import * as api from '$lib/client/api';
+	import { createEventDispatcher } from 'svelte';
 
 	export let team: api.Team;
 	export let members: api.User[];
 	export let user: api.User;
+
+	let dispatch = createEventDispatcher<{ 'update-team': null }>();
 
 	let filteredMembers: api.User[] = [];
 	$: filteredMembers = members.filter((member) => member.id != user.id);
@@ -24,16 +27,34 @@
 			document.body.style.position = '';
 		}
 	}
+
+	let errorMsg: null | string = null;
+
+	const leaveTeam = () => {
+		api
+			.leaveTeam()
+			.then(() => {
+				showModal = false;
+				dispatch('update-team', null);
+			})
+			.catch((ex) => {
+				console.error(ex);
+				errorMsg = "Couldn't leave team\ntry reloading page or trying again";
+			});
+	};
 </script>
 
-<div class="modal" class:shown={showModal} on:click={() => (showModal = false)} on:keyup={() => {}}>
+<div class="modal" class:shown={showModal}>
 	<Paragraph color="red">
 		<svelte:fragment slot="title">Are you sure?</svelte:fragment>
 
 		<div slot="content">
 			<p>Are you sure you want to leave <span class="team-name">{team.name}</span>?</p>
+			{#if errorMsg}
+				<p class="error">{errorMsg}</p>
+			{/if}
 			<div class="leave-options">
-				<button>Yes</button>
+				<button on:click={leaveTeam}>Yes</button>
 				<button on:click={() => (showModal = false)}>No</button>
 			</div>
 		</div>
@@ -71,6 +92,10 @@
 </Section>
 
 <style lang="scss">
+	.error {
+		color: black;
+	}
+
 	.team-name {
 		font-weight: bold;
 	}
@@ -112,6 +137,7 @@
 			width: fit-content !important;
 			max-width: 100%;
 			height: fit-content;
+			z-index: 100;
 		}
 
 		.leave-options {

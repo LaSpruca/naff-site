@@ -1,24 +1,38 @@
 use actix_web::{
     get, post,
     web::{self, Data},
-    HttpResponse,
+    HttpResponse, Scope,
 };
 use serde::Deserialize;
 
 use crate::{auth::User, db::Db, Error};
 
+pub fn service() -> Scope {
+    Scope::new("/team")
+        .service(get_team)
+        .service(join_team)
+        .service(create_team)
+        .service(get_members)
+        .service(leave_team)
+}
+
 #[derive(Deserialize)]
-pub struct TeamParams {
+struct TeamParams {
     id: String,
 }
 
 #[derive(Deserialize)]
-pub struct CreateTeamParams {
+struct CreateTeamParams {
     name: String,
 }
 
+#[get("/")]
+async fn get_team(db: web::Data<Db>, user: User) -> Result<HttpResponse, Error> {
+    db.get_team(user).await.map(|x| HttpResponse::Ok().json(x))
+}
+
 #[post("/join")]
-pub async fn join_team(
+async fn join_team(
     db: Data<Db>,
     user: User,
     params: web::Query<TeamParams>,
@@ -30,7 +44,7 @@ pub async fn join_team(
 }
 
 #[post("/new")]
-pub async fn create_team(
+async fn create_team(
     db: Data<Db>,
     user: User,
     params: web::Query<CreateTeamParams>,
@@ -42,14 +56,14 @@ pub async fn create_team(
 }
 
 #[post("/leave")]
-pub async fn leave_team(db: Data<Db>, user: User) -> Result<HttpResponse, Error> {
+async fn leave_team(db: Data<Db>, user: User) -> Result<HttpResponse, Error> {
     db.leave_team(user)
         .await
         .map(|x| HttpResponse::Ok().json(x))
 }
 
 #[get("/{id}/members")]
-pub async fn get_members(
+async fn get_members(
     db: Data<Db>,
     user: User,
     id: web::Path<String>,
