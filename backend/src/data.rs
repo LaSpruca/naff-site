@@ -45,6 +45,8 @@ impl States {
             .collect();
         self.inner.write().await.push(state.clone());
 
+        info!("{:?}", self.inner.read().await);
+
         state
     }
 
