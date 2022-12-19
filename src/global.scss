@@ -34,6 +34,7 @@
 body {
 	color: rgb(var(--text));
 	font-family: 'Open Sans', sans-serif;
+	width: 100%;
 	// background-color: ;
 }
 
@@ -51,11 +52,47 @@ main {
 
 	&.light {
 		color: #fff;
-		filter: drop-shadow(0 0 2px #fff);
+		filter: drop-shadow(0 0 2px #fff7);
 	}
 
 	&.dark {
 		color: #2a2a2a;
-		filter: drop-shadow(0 0 2px #222);
+		filter: drop-shadow(0 0 2px #2227);
+	}
+}
+
+button {
+	border: none;
+	padding: 0.45rem;
+	border-radius: 2px;
+	font-weight: bold;
+	transition: all 0.1s ease-in-out;
+
+	&:hover {
+		filter: drop-shadow(#444 0 0 10px);
+		transform: scale(1.05);
+	}
+
+	&:active {
+		outline: none;
+	}
+}
+
+@media (prefers-reduced-motion) {
+	* {
+		transition: all 0s ease-in-out !important;
+		transform: scale(0);
+	}
+}
+
+input {
+	outline: none !important;
+	border: 0 solid #000a;
+	border-radius: 2px;
+	font-size: 10pt;
+	transition: all 0.1s ease-in-out;
+
+	&:focus-within {
+		box-shadow: #000 0 0 10px;
 	}
 }

@@ -1,0 +1,330 @@
+{
+  "db": "PostgreSQL",
+  "0a686d495db4fc569761f973bfa783ea2abc2b31d355536503512badae7b753e": {
+    "describe": {
+      "columns": [],
+      "nullable": [],
+      "parameters": {
+        "Left": [
+          "Text"
+        ]
+      }
+    },
+    "query": "DELETE FROM user_connection WHERE \"user\" = $1"
+  },
+  "1b266bd05cd6908017fd81da7c8cd91e25c93db28d6701ededb0c9c26f39fe60": {
+    "describe": {
+      "columns": [
+        {
+          "name": "id",
+          "ordinal": 0,
+          "type_info": "Varchar"
+        },
+        {
+          "name": "name",
+          "ordinal": 1,
+          "type_info": "Text"
+        },
+        {
+          "name": "film_name",
+          "ordinal": 2,
+          "type_info": "Text"
+        },
+        {
+          "name": "film_description",
+          "ordinal": 3,
+          "type_info": "Text"
+        },
+        {
+          "name": "has_file",
+          "ordinal": 4,
+          "type_info": "Bool"
+        }
+      ],
+      "nullable": [
+        false,
+        false,
+        false,
+        false,
+        false
+      ],
+      "parameters": {
+        "Left": [
+          "Text"
+        ]
+      }
+    },
+    "query": "SELECT t.* FROM user_connection join teams t on t.id = user_connection.team where user_connection.\"user\" = $1;"
+  },
+  "32d72401035a07187c8a67ed0f4b20f713d0984ed885c9373748f6a5603fad92": {
+    "describe": {
+      "columns": [
+        {
+          "name": "id",
+          "ordinal": 0,
+          "type_info": "Varchar"
+        },
+        {
+          "name": "name",
+          "ordinal": 1,
+          "type_info": "Text"
+        },
+        {
+          "name": "film_name",
+          "ordinal": 2,
+          "type_info": "Text"
+        },
+        {
+          "name": "film_description",
+          "ordinal": 3,
+          "type_info": "Text"
+        },
+        {
+          "name": "has_file",
+          "ordinal": 4,
+          "type_info": "Bool"
+        }
+      ],
+      "nullable": [
+        false,
+        false,
+        false,
+        false,
+        false
+      ],
+      "parameters": {
+        "Left": [
+          "Text"
+        ]
+      }
+    },
+    "query": "INSERT INTO teams (\"name\") VALUES ($1) RETURNING *"
+  },
+  "677e970856c92c01594f75d97b60d74781acc379462d3c747eb2158b33e594be": {
+    "describe": {
+      "columns": [
+        {
+          "name": "id",
+          "ordinal": 0,
+          "type_info": "Varchar"
+        },
+        {
+          "name": "name",
+          "ordinal": 1,
+          "type_info": "Text"
+        },
+        {
+          "name": "film_name",
+          "ordinal": 2,
+          "type_info": "Text"
+        },
+        {
+          "name": "film_description",
+          "ordinal": 3,
+          "type_info": "Text"
+        },
+        {
+          "name": "has_file",
+          "ordinal": 4,
+          "type_info": "Bool"
+        }
+      ],
+      "nullable": [
+        false,
+        false,
+        false,
+        false,
+        false
+      ],
+      "parameters": {
+        "Left": [
+          "Text"
+        ]
+      }
+    },
+    "query": "SELECT * FROM teams WHERE id = $1"
+  },
+  "7b6b39d846df905aa91630eac6b5293bac985b8819c4f4c1d44f8cc6b17b39c0": {
+    "describe": {
+      "columns": [
+        {
+          "name": "id",
+          "ordinal": 0,
+          "type_info": "Text"
+        },
+        {
+          "name": "name",
+          "ordinal": 1,
+          "type_info": "Text"
+        },
+        {
+          "name": "email",
+          "ordinal": 2,
+          "type_info": "Text"
+        },
+        {
+          "name": "is_admin",
+          "ordinal": 3,
+          "type_info": "Bool"
+        }
+      ],
+      "nullable": [
+        false,
+        false,
+        false,
+        false
+      ],
+      "parameters": {
+        "Left": [
+          "Text"
+        ]
+      }
+    },
+    "query": "SELECT u.* FROM user_connection JOIN users u on user_connection.\"user\" = u.id WHERE team = $1;"
+  },
+  "843923b9a0257cf80f1dff554e7dc8fdfc05f489328e8376513124dfb42996e3": {
+    "describe": {
+      "columns": [
+        {
+          "name": "id",
+          "ordinal": 0,
+          "type_info": "Text"
+        },
+        {
+          "name": "name",
+          "ordinal": 1,
+          "type_info": "Text"
+        },
+        {
+          "name": "email",
+          "ordinal": 2,
+          "type_info": "Text"
+        },
+        {
+          "name": "is_admin",
+          "ordinal": 3,
+          "type_info": "Bool"
+        }
+      ],
+      "nullable": [
+        false,
+        false,
+        false,
+        false
+      ],
+      "parameters": {
+        "Left": [
+          "Text"
+        ]
+      }
+    },
+    "query": "SELECT * FROM users WHERE id = $1"
+  },
+  "8e0fa69c98aa58d60577f0fd087462dcc8a863c39647806f57965d37758647ae": {
+    "describe": {
+      "columns": [
+        {
+          "name": "has_team",
+          "ordinal": 0,
+          "type_info": "Bool"
+        }
+      ],
+      "nullable": [
+        null
+      ],
+      "parameters": {
+        "Left": [
+          "Text"
+        ]
+      }
+    },
+    "query": "SELECT has_team($1)"
+  },
+  "b8b850d025bd7148ec0318ce0e5a7d53fc77b65c2091ed7fa57bb434741ffdeb": {
+    "describe": {
+      "columns": [],
+      "nullable": [],
+      "parameters": {
+        "Left": [
+          "Varchar",
+          "Text"
+        ]
+      }
+    },
+    "query": "INSERT INTO user_connection (\"user\", team) VALUES ($2, $1)"
+  },
+  "cec8325543a6db856a22016115d1064a16042c8afc549fbdf308c7d2dfa1c8aa": {
+    "describe": {
+      "columns": [],
+      "nullable": [],
+      "parameters": {
+        "Left": [
+          "Varchar",
+          "Text"
+        ]
+      }
+    },
+    "query": "INSERT INTO user_connection (team, \"user\") VALUES ($1, $2)"
+  },
+  "dcf382feecefad736243789d49d1858acfa433ccde8f3cf0c20bd17b58b7daa2": {
+    "describe": {
+      "columns": [
+        {
+          "name": "exists",
+          "ordinal": 0,
+          "type_info": "Bool"
+        }
+      ],
+      "nullable": [
+        null
+      ],
+      "parameters": {
+        "Left": [
+          "Text",
+          "Text"
+        ]
+      }
+    },
+    "query": "SELECT exists(SELECT 1 FROM user_connection WHERE \"user\" = $1 AND team = $2)"
+  },
+  "fb983ca8684333c28d9164a80e3f65e97a896fd70e90f5a40d4f8d4d46327184": {
+    "describe": {
+      "columns": [
+        {
+          "name": "id",
+          "ordinal": 0,
+          "type_info": "Text"
+        },
+        {
+          "name": "name",
+          "ordinal": 1,
+          "type_info": "Text"
+        },
+        {
+          "name": "email",
+          "ordinal": 2,
+          "type_info": "Text"
+        },
+        {
+          "name": "is_admin",
+          "ordinal": 3,
+          "type_info": "Bool"
+        }
+      ],
+      "nullable": [
+        false,
+        false,
+        false,
+        false
+      ],
+      "parameters": {
+        "Left": [
+          "Text",
+          "Text",
+          "Text"
+        ]
+      }
+    },
+    "query": "INSERT INTO users (id, \"name\", email) VALUES ($1, $2, $3) RETURNING *"
+  }
+}

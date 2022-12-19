@@ -2,7 +2,6 @@
 	import { page } from '$app/stores';
 	let pageHref: string;
 	$: pageHref = $page.url.href.replace($page.url.protocol + '//' + $page.url.host, '');
-	$: console.log(pageHref);
 </script>
 
 <header>
