@@ -72,6 +72,9 @@
 
 <Section color="blue">
 	<svelte:fragment slot="title">Film Details</svelte:fragment>
+	<div slot="content">
+		<p>This function is not yet ready, check back mid january to see if you can upload your film</p>
+	</div>
 </Section>
 
 <Section color="green">
