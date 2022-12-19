@@ -120,6 +120,7 @@ async fn login_callback(
                         .path("/")
                         .same_site(SameSite::None)
                         .secure(true)
+                        .domain(frontend)
                         .finish()
                         .to_string(),
                 ))
