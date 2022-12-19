@@ -5,7 +5,6 @@
 	import '../global.scss';
 	import Header from '$lib/components/Header.svelte';
 	import Footer from '$lib/components/Footer.svelte';
-	import '$lib/client/auth0';
 </script>
 
 <Header />

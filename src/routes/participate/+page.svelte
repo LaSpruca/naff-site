@@ -1,8 +1,20 @@
 <script lang="ts">
-	import { loggedIn } from '$lib/client/stores';
-	import Login from '$lib/components/Login.svelte';
 	import SectionHeader from '$lib/components/SectionHeader.svelte';
-	import User from '$lib/components/User.svelte';
+	import type { PageServerData } from './$types';
+	import JoinTeam from '$lib/components/participate/JoinTeam.svelte';
+	import TeamPage from '$lib/components/participate/TeamPage.svelte';
+	import * as api from '$lib/client/api';
+
+	export let data: PageServerData;
+
+	let { user, team, members } = data;
+
+	$: if (team) {
+		api
+			.getMembers(team.id)
+			.then((val) => (members = val))
+			.catch((ex) => console.error(ex));
+	}
 </script>
 
 <svelte:head>
@@ -10,10 +22,11 @@
 </svelte:head>
 
 <SectionHeader>Participants Portal</SectionHeader>
-{#if !$loggedIn}
-	<Login />
+
+{#if team && members}
+	<TeamPage {user} {team} {members} />
 {:else}
-	<User />
+	<JoinTeam on:team-update={(event) => (team = event.detail)} />
 {/if}
 
 <style lang="scss">

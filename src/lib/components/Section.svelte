@@ -3,11 +3,13 @@
 
 	type Colors = 'green' | 'blue' | 'red';
 	export let color: Colors;
+	let className: string = '';
+	export { className as class };
 
 	let tone: 'light' | 'dark' = color == 'blue' ? 'dark' : 'light';
 </script>
 
-<div class="paragraph {color}">
+<div class="paragraph {color} {className}">
 	<A2 style={tone}><slot name="title" /></A2>
 	<div class="content">
 		<slot name="content" />
