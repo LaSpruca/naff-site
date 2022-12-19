@@ -69,7 +69,7 @@ pub enum Error {
     #[error("Error running migrations: {0}")]
     DbMigrationError(sqlx::migrate::MigrateError),
 
-    #[error("Could not start server")]
+    #[error("Could not start server {0}")]
     ServerStartError(io::Error),
 
     #[error("Not implemented")]
