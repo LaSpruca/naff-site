@@ -1,6 +1,6 @@
-use rand::{thread_rng, Rng};
+// use rand::{thread_rng, Rng};
 use serde::Deserialize;
-use tracing::info;
+// use tracing::info;
 
 use crate::error::*;
 
@@ -24,34 +24,35 @@ pub fn get_config() -> Result<(Auth0Config, UrlConfig), Error> {
     Ok((authz_config, public_config))
 }
 
-#[derive(Clone, Debug)]
-pub struct States {
-    inner: Vec<String>,
-}
+// #[derive(Clone, Debug)]
+// pub struct States {
+//     inner: Vec<String>,
+// }
 
-impl States {
-    pub fn new() -> Self {
-        Self { inner: vec![] }
-    }
+// impl States {
+//     pub fn new() -> Self {
+//         Self { inner: vec![] }
+//     }
 
-    pub fn add(&mut self) -> String {
-        let mut rng = thread_rng();
-        let state: String = (0..10)
-            .map(|_| rng.sample(rand::distributions::Alphanumeric) as char)
-            .collect();
-        self.inner.push(state.clone());
+//     pub fn add(&mut self) -> String {
+//         let mut rng = thread_rng();
+//         let state: String = (0..10)
+//             .map(|_| rng.sample(rand::distributions::Alphanumeric) as char)
+//             .collect();
+//         self.inner.push(state.clone());
 
-        state
-    }
+//         state
+//     }
 
-    pub fn check(&mut self, state: &String) -> bool {
-        info!("{state} {:?}", self.inner);
-        let find_index = self.inner.iter().position(|x| x == state);
-        if let Some(idex) = find_index {
-            self.inner.remove(idex);
-            return true;
-        }
+//     pub fn check(&mut self, state: &String) -> bool {
+//         info!("{state} {:?}", self.inner);
+//         let find_index = self.inner.iter().position(|x| x == state);
+//         if let Some(idex) = find_index {
+//             self.inner.remove(idex);
+//             return true;
+//         }
 
-        false
-    }
-}
+//         false
+//     }
+// }
+//
