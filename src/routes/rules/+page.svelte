@@ -12,7 +12,7 @@
 <Section color="blue">
 	<svelte:fragment slot="title">Rules and regulations</svelte:fragment>
 	<div slot="content">
-		<ul>
+		<ul class="list">
 			<li>Short films must be submitted by (Date TBD)</li>
 			<li>
 				NAFF is open to all ages and all levels of skill and experience in filmmaking although you
@@ -49,3 +49,34 @@
 		<p>NAFF is free to enter, non profit event that is thankful for its sponsors</p>
 	</div>
 </Section>
+
+<style lang="scss">
+	.list {
+		list-style: none;
+		padding-left: 0;
+		li {
+			position: relative;
+			padding: 1rem;
+			margin-left: 0;
+			&:not(:last-child)::after {
+				--clip: polygon(50% 0%, 100% 40%, 100% 60%, 50% 100%, 0 60%, 0 40%);
+
+				content: '';
+				position: absolute;
+				width: 100%;
+				height: 2px;
+				bottom: 0;
+				left: 0;
+				background-color: #0005;
+
+				-webkit-clip-path: var(--clip);
+				clip-path: var(--clip);
+			}
+		}
+	}
+
+	.list ~ p {
+		padding-top: 1.5rem;
+		font-weight: bold;
+	}
+</style>
