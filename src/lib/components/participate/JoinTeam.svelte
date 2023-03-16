@@ -70,7 +70,7 @@
 	<svelte:fragment slot="title">Join a team</svelte:fragment>
 
 	<div slot="content">
-		<p class="text">Looks like you aren't in a team yet, lets fix that</p>
+		<p class="text">It looks like you aren't in a team yet. Lets fix that!</p>
 
 		<div class="options-wrapper">
 			<div class="options left" class:shown={mode == null}>

@@ -11,10 +11,19 @@
 <Paragraph color="pink">
 	<svelte:fragment slot="title">Contact Options</svelte:fragment>
 	<p slot="content">
-		We can be contacted though email <a href="mailto:kiaora@naff.nz">kiaora@naff.nz</a>, or on
-		instagram via @naff2023
+		We can be contacted though email: <a href="mailto:kiaora@naff.nz">kiaora@naff.nz</a>
+		<br>
+		Or, on Instagram: <a href="https://www.instagram.com/naff2023/">@naff2023</a>
 	</p>
 </Paragraph>
 
 <style lang="scss">
+	a{
+		color: inherit;
+		text-decoration: none;
+		margin-left: 0.5rem;
+	}
+	a:hover{
+		text-decoration: underline;
+	}
 </style>

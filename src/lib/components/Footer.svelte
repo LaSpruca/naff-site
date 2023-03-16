@@ -1,5 +1,5 @@
 <footer>
-	<p>&copy; 2022 Northland Amature Filmmakers Festivle</p>
+	<p>&copy; 2023 Northland Amateur Filmmakers Festival</p>
 	<p>Site designed by <a href="https://laspruca.nz">Nathan Hare</a></p>
 </footer>
 

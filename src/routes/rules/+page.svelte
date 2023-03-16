@@ -13,14 +13,14 @@
 	<svelte:fragment slot="title">Rules and regulations</svelte:fragment>
 	<div slot="content">
 		<ul class="list">
-			<li>Short films must be submitted by (Date TBD)</li>
+			<li>Short films must be submitted by the 10th of July</li>
 			<li>
-				NAFF is open to all ages and all levels of skill and experience in filmmaking although you
-				must enter in the correct category
+				NAFF welcomes filmmakers of all ages and skill levels, regardless of their level of 
+				experience, but you must submit the films in the appropriate category.
 			</li>
 			<li>
-				There is no restriction in theme, genre, or style however this is a “short film festival”
-				therefore films must have a story or narrative to them and organisers reserve the right to
+				There is no restriction in theme, genre, or style. However, this is a short film festival,
+				and films must have a story or narrative to them. Organisers reserve the right to
 				not screen your entry.
 			</li>
 			<li>
@@ -29,8 +29,8 @@
 				NAFF committee. Films shouldn’t exceed an M rating.
 			</li>
 			<li>
-				We will not accept or screen home movies, random 10 minutes of footage, or edits using other
-				movies footage unless rights are accessed
+				We will not accept or screen home movies, random footage, or edits using other movies footage 
+				unless rights are accessed.
 			</li>
 			<li>
 				Films can be anything up to, but not over 10 minutes (If its a few seconds over it will be
@@ -38,15 +38,15 @@
 			</li>
 			<li>Films must be uploaded via the link on website</li>
 			<li>
-				As all films unless deemed against rules and regs will be screened to public, please ensure
-				that you have acquired the appropriate copyright permissions and release forms
+				As all films -- unless deemed against rules and regulations -- will be screened to public, 
+				please ensure that you have acquired the appropriate copyright permissions and release forms.
 			</li>
 			<li>
-				These films will be screened in a public family friendly setting. We WILL rate all films,
-				although we will accept these films please remember that this is a family friendly event
+				These films will be screened in a public, family friendly setting. We WILL rate all films,
+				and although we will moderate these, please remember that this is a family-friendly event.
 			</li>
 		</ul>
-		<p>NAFF is free to enter, non profit event that is thankful for its sponsors</p>
+		<p>NAFF is a free to enter, not-for-profit event. Thank you to our sponsors!</p>
 	</div>
 </Section>
 

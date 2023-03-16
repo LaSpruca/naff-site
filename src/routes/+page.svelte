@@ -8,14 +8,14 @@
 	<title>NAFF</title>
 </svelte:head>
 
-<SectionHeader>A filmmaking competition for those of us in Northland</SectionHeader>
+<SectionHeader>A Northland-Based Film Festival</SectionHeader>
 
 <Paragraph color="blue">
 	<svelte:fragment slot="title">what is naff?</svelte:fragment>
 	<p slot="content">
-		The Northland Amateur Filmakers Festival or NAFF for short, is all about unleashing Te Tai
-		Tokerau's Creativity. NAFF is a free to enter film festival with judging from industry
-		professionals
+		The Northland Amateur Filmakers Festival (or NAFF for short), is all about unleashing Te Tai
+		Tokerau's creativity. NAFF is a free to enter film festival with judging from industry
+		professionals.
 	</p>
 </Paragraph>
 
@@ -24,15 +24,15 @@
 	<div slot="content">
 		<p>
 			The Northland Amateur Filmakers Festival was created in 2005 by Hayley Clark & Papanui
-			Polamalu for no real reason but they liked making short films and knew a few others who also
-			liked making them, so why not create a event to screen them? Plus the acronym made Hayley &
+			Polamalu for no real reason, except they liked making short films and knew a few others who also
+			liked making them, so why not create a event to screen them? Plus, the acronym made Hayley &
 			Papanui giggle. There was no fee to submit (and still isnt) and every one got NAFF trophies
-			designed by Hayley & Papanui. The trophys were designed to be intentionally NAFF, inspired by
+			designed by Hayley & Papanui. The trophies were designed to be intentionally NAFF, inspired by
 			the Fanny the Wonder Dog trophies (If you know this reference your Hayleys best friend for
-			life). In 2005 NAFF was being screened on VHS & DVD submissions, and by 2010 most submissions
+			life). In 2005, NAFF was being screened on VHS & DVD submissions, and by 2010 most submissions
 			were being screened on USB drives. Hayley & Papanui had amazing suport from local filmakers.
 		</p>
-		<p class="strong">After a 12 year break NAFF is back</p>
+		<p class="strong">After a 12 year break, NAFF is back!</p>
 	</div>
 </Paragraph>
 
@@ -40,13 +40,13 @@
 	<svelte:fragment slot="title">wanna join?</svelte:fragment>
 	<div slot="content" class="items">
 		<A3 style="light">registrations open</A3>
-		<p class="open-date">20th of december 2022</p>
+		<A3 style="light">20th of december 2022</A3>
 		<div>
 			<A3 style="light">interested in joining?</A3>
 			<a href="/participate">sign up here</a>
 		</div>
 		<div>
-			<A3 style="light">as always</A3>
+			<A3 style="light">and as always,</A3>
 			<a href="/rules">read the rules</a>
 		</div>
 	</div>
@@ -65,10 +65,6 @@
 		gap: 0.5rem;
 
 		text-transform: uppercase;
-
-		p {
-			font-weight: bold;
-		}
 
 		div {
 			padding-top: 0.5rem;
