@@ -7,6 +7,7 @@ use jsonwebtoken::{
     Algorithm, DecodingKey, Validation,
 };
 use serde::{Deserialize, Serialize};
+use tracing::warn;
 
 async fn parse_jwt(
     jwks: &JwkSet,
@@ -15,9 +16,18 @@ async fn parse_jwt(
         domain, client_id, ..
     }: &Auth0Config,
 ) -> Result<User, Error> {
-    let header = jwt::decode_header(&token).map_err(|_| Error::Unauthorized)?;
-    let kid = header.kid.ok_or(Error::Unauthorized)?;
-    let jwk = jwks.find(&kid).ok_or(Error::Unauthorized)?;
+    let header = jwt::decode_header(&token).map_err(|_| {
+        warn!("Could not decode header");
+        Error::Unauthorized
+    })?;
+    let kid = header.kid.ok_or_else(|| {
+        warn!("No KIDs");
+        Error::Unauthorized
+    })?;
+    let jwk = jwks.find(&kid).ok_or_else(|| {
+        warn!("Could not find JWKs");
+        Error::Unauthorized
+    })?;
 
     match jwk.clone().algorithm {
         AlgorithmParameters::RSA(ref rsa) => {
@@ -26,8 +36,10 @@ async fn parse_jwt(
             validation.set_issuer(&[format!("https://{domain}/").as_str()]);
             let key = DecodingKey::from_rsa_components(&rsa.n, &rsa.e)
                 .map_err(|_| Error::Unauthorized)?;
-            let token =
-                decode::<User>(token, &key, &validation).map_err(|_| Error::Unauthorized)?;
+            let token = decode::<User>(token, &key, &validation).map_err(|_| {
+                warn!("Could not validate key");
+                Error::Unauthorized
+            })?;
 
             Ok(token.claims)
         }
@@ -62,7 +74,10 @@ impl FromRequest for User {
                         .get("Authorization")
                         .and_then(|x| x.to_str().ok().map(|x| x.to_owned()))
                 })
-                .ok_or(Error::Unauthorized)?;
+                .ok_or_else(|| {
+                    warn!("No header");
+                    Error::Unauthorized
+                })?;
 
             parse_jwt(jwks, token.as_str(), auth0_config).await
         })
@@ -98,6 +113,7 @@ impl FromRequest for AdminUser {
             if db.is_user_admin(&user).await.unwrap_or(false) {
                 Ok(AdminUser(user))
             } else {
+                warn!("User is not an admin");
                 Err(Error::Unauthorized)
             }
         })
