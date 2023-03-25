@@ -1,5 +1,5 @@
-// import { PUBLIC_BACKEND } from '$env/static/public';
-const PUBLIC_BACKEND = 'http://0.0.0.0:8080';
+import { PUBLIC_BACKEND } from '$env/static/public';
+// const PUBLIC_BACKEND = 'http://0.0.0.0:8080';
 
 export class ApiError extends Error {
 	public code: number;
