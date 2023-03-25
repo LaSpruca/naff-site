@@ -14,7 +14,7 @@ sqlx = { version = "0.6", features = [
     "postgres",
     "macros",
     "migrate",
-    # "offline",
+    "offline",
 ], default-features = false }
 tracing-actix-web = "0.7"
 tracing = "0.1"

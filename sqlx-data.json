@@ -56,6 +56,48 @@
     },
     "query": "SELECT t.* FROM user_connection join teams t on t.id = user_connection.team where user_connection.\"user\" = $1;"
   },
+  "1eb1069f07221e34f1ca16dbaea10903f3f6ce9b74f2ba93f83ebcb2bdd17e1b": {
+    "describe": {
+      "columns": [
+        {
+          "name": "id",
+          "ordinal": 0,
+          "type_info": "Varchar"
+        },
+        {
+          "name": "name",
+          "ordinal": 1,
+          "type_info": "Text"
+        },
+        {
+          "name": "film_name",
+          "ordinal": 2,
+          "type_info": "Text"
+        },
+        {
+          "name": "film_description",
+          "ordinal": 3,
+          "type_info": "Text"
+        },
+        {
+          "name": "has_file",
+          "ordinal": 4,
+          "type_info": "Bool"
+        }
+      ],
+      "nullable": [
+        false,
+        false,
+        false,
+        false,
+        false
+      ],
+      "parameters": {
+        "Left": []
+      }
+    },
+    "query": "SELECT * FROM teams"
+  },
   "32d72401035a07187c8a67ed0f4b20f713d0984ed885c9373748f6a5603fad92": {
     "describe": {
       "columns": [
@@ -286,6 +328,26 @@
       }
     },
     "query": "SELECT exists(SELECT 1 FROM user_connection WHERE \"user\" = $1 AND team = $2)"
+  },
+  "f729d9c0817b66c9d1a49489668d3bea174b60b8df0da19e2cf89a621c846bfb": {
+    "describe": {
+      "columns": [
+        {
+          "name": "is_admin",
+          "ordinal": 0,
+          "type_info": "Bool"
+        }
+      ],
+      "nullable": [
+        false
+      ],
+      "parameters": {
+        "Left": [
+          "Text"
+        ]
+      }
+    },
+    "query": "SELECT is_admin FROM users WHERE id=$1"
   },
   "fb983ca8684333c28d9164a80e3f65e97a896fd70e90f5a40d4f8d4d46327184": {
     "describe": {
