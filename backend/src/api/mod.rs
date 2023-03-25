@@ -1,3 +1,4 @@
+mod admin;
 pub mod auth;
 mod teams;
 
@@ -6,6 +7,7 @@ use actix_web::{get, web, HttpResponse, Scope};
 
 pub fn api() -> Scope {
     Scope::new("/api")
+        .service(admin::service())
         .service(get_user)
         .service(teams::service())
 }

@@ -12,7 +12,7 @@ use tracing::debug;
 
 #[derive(Deserialize, Clone)]
 pub struct OAuthTokenResponse {
-    access_token: String,
+    id_token: String,
     expires_in: i32,
 }
 
@@ -78,6 +78,7 @@ async fn login_callback(
         client_id,
         domain,
         client_secret,
+        ..
     } = config.get_ref();
 
     let Auth0Url { code } = req.0;
@@ -106,20 +107,16 @@ async fn login_callback(
             return HttpResponse::InternalServerError().body("Couldn't get token");
         }
 
-        let text = res.text().await.unwrap();
-
-        debug!("{text}");
-
         let OAuthTokenResponse {
-            access_token,
+            id_token,
             expires_in,
-        } = serde_json::from_str(&text).unwrap();
+        } = res.json().await.unwrap();
 
         HttpResponse::TemporaryRedirect()
             .append_header((header::LOCATION, format!("{frontend}/participate")))
             .append_header((
                 header::SET_COOKIE,
-                CookieBuilder::new("access_token", access_token)
+                CookieBuilder::new("access_token", id_token)
                     .max_age(Duration::seconds(expires_in as i64))
                     .http_only(true)
                     .path("/")

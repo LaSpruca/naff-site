@@ -98,6 +98,9 @@ pub enum Error {
 
     #[error("You have to be in a team before you can leave it")]
     NotInTeam,
+
+    #[error("Not allowed")]
+    NotAllowed,
 }
 
 impl Error {
@@ -116,6 +119,7 @@ impl Error {
             Error::Unauthorized => 243,
             Error::NotImplemented => 254,
             Error::InternalError => 255,
+            Error::NotAllowed => 244,
         }
     }
 
@@ -131,6 +135,7 @@ impl ResponseError for Error {
             Error::Unauthorized => StatusCode::UNAUTHORIZED,
             Error::TeamAccessDenied(_) => StatusCode::FORBIDDEN,
             Error::NotImplemented => StatusCode::NOT_IMPLEMENTED,
+            Error::NotAllowed => StatusCode::FORBIDDEN,
             _ => StatusCode::INTERNAL_SERVER_ERROR,
         }
     }

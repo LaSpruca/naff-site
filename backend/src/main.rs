@@ -1,8 +1,11 @@
+extern crate jsonwebtoken as jwt;
+
 mod api;
 mod auth;
 mod data;
 mod db;
 mod error;
+mod jwt_helpers;
 
 use crate::{api::auth::auth, data::get_config, db::Db};
 use actix_cors::Cors;
@@ -11,7 +14,7 @@ use db::create_connection;
 use error::AsCreateError;
 pub use error::Error;
 use sqlx::migrate::Migrator;
-use std::process::ExitCode;
+use std::{io, process::ExitCode};
 use tracing::{error, info};
 use tracing_actix_web::TracingLogger;
 
@@ -29,6 +32,11 @@ async fn start() -> Result<(), Error> {
     MIGRATOR.run(&pool).await.to_crate()?;
 
     let (auth0, public) = get_config()?;
+
+    let jwk = jwt_helpers::get_kwks(&auth0).await.ok_or_else(|| {
+        error::Error::ServerStartError(io::Error::new(io::ErrorKind::Other, "Could not fetch JWKs"))
+    })?;
+
     HttpServer::new(move || {
         App::new()
             .wrap(
@@ -43,6 +51,7 @@ async fn start() -> Result<(), Error> {
             // .app_data(Data::new(Mutex::new(States::new())))
             .app_data(Data::new(auth0.clone()))
             .app_data(Data::new(public.clone()))
+            .app_data(Data::new(jwk.clone()))
             .service(api::api())
             .service(auth())
     })

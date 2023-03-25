@@ -19,9 +19,7 @@ export const load: PageServerLoad = async ({ cookies, fetch }) => {
 
 	try {
 		user = await api.getUser({ fetch, token: auth });
-		console.log('Fetched user');
 		team = await api.getTeam({ fetch, token: auth });
-		console.log('Fetched team');
 
 		if (team) {
 			members = await api.getMembers(team.id, { fetch, token: auth });
@@ -32,7 +30,9 @@ export const load: PageServerLoad = async ({ cookies, fetch }) => {
 				throw redirect(307, `${PUBLIC_BACKEND}/auth/logout`);
 			}
 		}
+
 		console.error(ex);
+
 		throw error(500, {
 			message: 'Internal Server Error'
 		});

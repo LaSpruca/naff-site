@@ -59,6 +59,19 @@ impl Db {
         })
     }
 
+    pub async fn is_user_admin(&self, user: &AuthUser) -> Result<bool, Error> {
+        Ok(
+            sqlx::query!("SELECT is_admin FROM users WHERE id=$1", user.id)
+                .fetch_one(&self.connection)
+                .await
+                .map_err(|x| {
+                    error!("Error inserting user {x}");
+                    Error::InternalError
+                })?
+                .is_admin,
+        )
+    }
+
     pub async fn get_team(&self, user: AuthUser) -> Result<Option<Team>, Error> {
         sqlx::query_as!(
             Team,
@@ -206,6 +219,16 @@ impl Db {
             })?;
 
         Ok(())
+    }
+
+    pub async fn get_teams(&self) -> Result<Vec<Team>, Error> {
+        sqlx::query_as!(Team, "SELECT * FROM teams")
+            .fetch_all(&self.connection)
+            .await
+            .or_else(|x| match x {
+                sqlx::Error::RowNotFound => Result::<Vec<Team>, Error>::Ok(vec![]),
+                _ => Err(Error::InternalError),
+            })
     }
 }
 
