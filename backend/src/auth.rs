@@ -36,10 +36,8 @@ async fn parse_jwt(
             validation.set_issuer(&[format!("https://{domain}/").as_str()]);
             let key = DecodingKey::from_rsa_components(&rsa.n, &rsa.e)
                 .map_err(|_| Error::Unauthorized)?;
-            let token = decode::<User>(token, &key, &validation).map_err(|_| {
-                warn!("Could not validate key");
-                Error::Unauthorized
-            })?;
+            let token =
+                decode::<User>(token, &key, &validation).map_err(|ex| Error::Unauthorized)?;
 
             Ok(token.claims)
         }
@@ -53,6 +51,8 @@ pub struct User {
     pub id: String,
     pub name: String,
     pub email: String,
+    #[serde(default)]
+    pub is_admin: bool,
 }
 
 impl FromRequest for User {

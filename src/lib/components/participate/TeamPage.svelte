@@ -62,7 +62,7 @@
 </div>
 
 <Section color="red">
-	<svelte:fragment slot="title">Welcome {user.name}</svelte:fragment>
+	<svelte:fragment slot="title">Kia Ora {user.name}</svelte:fragment>
 	<div slot="content">
 		<p>You are in <span class="team-name">{team.name}</span></p>
 		<p>Your team code is <span class="team-name">{team.id}</span></p>
@@ -73,7 +73,7 @@
 <Section color="blue">
 	<svelte:fragment slot="title">Film Details</svelte:fragment>
 	<div slot="content">
-		<p>This function is not yet ready, check back mid january to see if you can upload your film</p>
+		<p>This function is not yet ready, check back soon to see if you can upload your film</p>
 	</div>
 </Section>
 

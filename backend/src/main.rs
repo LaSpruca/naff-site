@@ -22,10 +22,6 @@ static MIGRATOR: Migrator = sqlx::migrate!();
 
 async fn start() -> Result<(), Error> {
     info!("Starting application");
-    #[allow(unused_must_use)]
-    {
-        dotenv::dotenv();
-    }
 
     let pool = create_connection().await?;
 
@@ -65,6 +61,10 @@ async fn start() -> Result<(), Error> {
 }
 
 fn main() -> ExitCode {
+    #[allow(unused_must_use)]
+    {
+        dotenv::dotenv();
+    }
     use tracing_subscriber::{fmt, prelude::*, EnvFilter};
     tracing_subscriber::registry()
         .with(fmt::layer())

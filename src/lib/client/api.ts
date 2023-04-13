@@ -1,5 +1,5 @@
-import { PUBLIC_BACKEND } from '$env/static/public';
-// const PUBLIC_BACKEND = 'http://0.0.0.0:8080';
+// import { PUBLIC_BACKEND } from '$env/static/public';
+const PUBLIC_BACKEND = 'http://0.0.0.0:8080';
 
 export class ApiError extends Error {
 	public code: number;
@@ -15,6 +15,7 @@ export type User = {
 	id: string;
 	name: string;
 	email: string;
+	is_admin: boolean;
 };
 
 export type Team = {
@@ -127,4 +128,26 @@ export const leaveTeam = async (): Promise<void> => {
 		console.log('Throwing error');
 		throw new ApiError(responseJson);
 	}
+};
+
+// Admin functions
+
+export const getTeams = async (options?: {
+	fetch: typeof fetch;
+	token: string;
+}): Promise<Team[]> => {
+	let fetch_options: RequestInit = {
+		credentials: 'include',
+		headers: { ...(options ? { Authorization: options.token } : {}) }
+	};
+
+	const fetch_fn = options?.fetch ?? fetch;
+	let request = await fetch_fn(`${PUBLIC_BACKEND}/api/admin/teams`, fetch_options);
+	let requestJson = await request.json();
+
+	if (request.status != 200) {
+		throw new ApiError(requestJson);
+	}
+
+	return requestJson;
 };

@@ -16,6 +16,7 @@ pub async fn get_kwks(Auth0Config { domain, .. }: &Auth0Config) -> Option<JwkSet
         error!("{ex}");
         None
     } else {
+        debug!("Got JWKs");
         Some(result.unwrap())
     }
 }
