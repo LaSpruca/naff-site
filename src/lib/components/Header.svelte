@@ -11,6 +11,7 @@
 		<a href="/rules" class:active={pageHref.startsWith('/rules')}>Rules</a>
 		<a href="/participate" class:active={pageHref.startsWith('/participate')}>Participate</a>
 		<a href="/contact" class:active={pageHref == '/contact'}>Contact us</a>
+		<a href="https://www.eventfinda.co.nz/2023/naff-screening-2023/whangarei" target="_blank" rel="noreferrer" class:active={pageHref == '/contact'}>Tickets</a>
 	</nav>
 </header>
 
